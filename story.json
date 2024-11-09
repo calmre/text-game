@@ -1,0 +1,30 @@
+{	
+	"scenes": {
+	    "scene1": {
+	      "text": "A dark evil wizard Tim the Conqueror has eradicated the whole Vestera, you a bounty killer wants to avenge your kin and reclaim your land.",
+	      "choices": [
+	        { "text": ">", "nextScene": "scene2" }
+	      ]
+	    },
+	    "scene2": {
+	      "text": "You are in the province Tanriel taking your sweet vacation, all of a sudden a messenger hawk tuah came to you, it looks like it came from your comrade Arthur, `tim done did it again, I hope this letter finds you, if it did, im probably dead lol`",
+	      "choices": [{ 
+	        "text": "Be Angry!!", "nextScene": "scene3",
+	        "inventory": [
+            { "item": "Iron Sword", "quantity": 1 },
+            { "item": "Health Potion", "quantity": 3 },
+            { "item": "Ration", "quantity": 3 }
+            ]},{ 
+	        "text": "Be not angry??", "nextScene": "scene4",
+	        "inventory":[
+	        { "item": "Slingshot", "quantity": 1 },
+	        { "item": "Health Potion", "quantity": 3 },
+            { "item": "Ration", "quantity": 3 }
+	      ]}]  
+	  },
+	  "scene3": {
+	      "text": "You decide to walk away. The adventure ends here.",
+	      "choices": []
+	    }
+	}
+}
