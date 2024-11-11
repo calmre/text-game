@@ -134,6 +134,8 @@ public class MainMenu implements KeyListener {
         MainMenu.setVisible(true);
         MainMenu.addKeyListener(this);
         MainMenu.setFocusable(true);
+        MainMenu.requestFocusInWindow();
+        
         MainMenu.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -154,7 +156,7 @@ public class MainMenu implements KeyListener {
 	
 	private void toggleSelectionColor() {
         JLabel selectedLabel = menuOptions[selectedOption];
-        if (isYellow) {
+        if (isYellow) {	
             selectedLabel.setForeground(Color.white); // Switch to white
         } else {
             selectedLabel.setForeground(Color.yellow); // Switch to yellow
@@ -223,6 +225,7 @@ public class MainMenu implements KeyListener {
 
         // Update the selection highlight
         updateSelection();
+        MainMenu.requestFocusInWindow();
     }
 	
 	private void executeAction(int selectedOption) {
