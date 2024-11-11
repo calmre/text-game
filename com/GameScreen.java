@@ -14,14 +14,10 @@ import java.io.IOException;
 
 public class GameScreen{
 	
-	JPanel buttonPanel;
     JButton choice1, choice2, choice3, choice4;
     JPanel GameScreen;
-    JPanel mainSpeechPanel;
-    JTextArea mainSpeech;
     GameLauncher gamelauncher;
     JsonNode gameData;
-    
     JPanel mainTextPanel = new JPanel();
     JPanel choiceButtonPanel = new JPanel();
     JPanel playerPanel = new JPanel();
@@ -54,9 +50,6 @@ public class GameScreen{
 		
 	public GameScreen(GameLauncher launcher) {
 		this.gamelauncher = launcher;
-		loadGameData();
-		
-		
 		
 		GameScreen = new JPanel();
 		GameScreen.setBounds(0,0,1280,720);
@@ -64,7 +57,7 @@ public class GameScreen{
 		GameScreen.setLayout(null);
 	
 	        
-        imagePanel.setBounds(190, 100, 425, 150);
+        imagePanel.setBounds(400, 100, 425, 250);
         imagePanel.setBackground(Color.blue);
         GameScreen.add(imagePanel);
         
@@ -74,12 +67,12 @@ public class GameScreen{
         JLabel image1Label = new JLabel(new ImageIcon(scaledImage));
         imagePanel.add(image1Label);
         
-        mainTextPanel.setBounds(100, 260, 600, 175);
+        mainTextPanel.setBounds(250, 360, 800, 175);
         mainTextPanel.setBackground(Color.pink);
         GameScreen.add(mainTextPanel);
         
         
-		        mainTextArea.setBounds(100, 100, 600, 100);
+		        mainTextArea.setBounds(100, 100, 800, 100);
 		        mainTextArea.setBackground(Color.black);
 		        mainTextArea.setForeground(Color.white);
 		        mainTextArea.setFont(normalFont);
@@ -87,7 +80,7 @@ public class GameScreen{
 		        mainTextArea.setLineWrap(true);
 		        mainTextPanel.add(mainTextArea);
 
-        choiceButtonPanel.setBounds(100, 450, 600, 75);
+        choiceButtonPanel.setBounds(300, 550, 600, 75);
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 3));
         GameScreen.add(choiceButtonPanel);
@@ -103,6 +96,8 @@ public class GameScreen{
 		        choice3 = new JButton();
 		        styleButton(choice3);
 		        choiceButtonPanel.add(choice3);
+		        
+		        
 
         
         playerPanel.setBounds(50, 15, 300, 75);
@@ -127,8 +122,8 @@ public class GameScreen{
 		        playerPanel.add(manaLabel);
 
         
-        optionsPanel.setBounds(420, 15, 350, 75);
-        optionsPanel.setBackground(Color.black);
+        optionsPanel.setBounds(820, 15, 350, 75);
+        optionsPanel.setBackground(Color.orange);
         optionsPanel.setLayout(new GridLayout(1, 3));
         GameScreen.add(optionsPanel);
 
@@ -155,7 +150,7 @@ public class GameScreen{
 		        optionsPanel.add(exitButton);
 
         playerSetup();
-        displayScene("scene1");
+        SceneHandler SH = new SceneHandler(this);
 	}
 		
         
@@ -191,54 +186,14 @@ public class GameScreen{
         label.setForeground(color);
     }    
 		
-	
-	private void loadGameData() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            gameData = objectMapper.readTree(new File("C:\\Users\\Christine Bellosillo\\eclipse-workspace\\TheGmae\\src\\story.json")); // Loads the JSON file
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public JTextArea getMainTextArea() {
+		return mainTextArea;
+	}
+	public JButton[] getButtons() {
+		JButton[] buttons = {choice1, choice2, choice3};
+		return buttons;
+	}
 
-    // Display the scene and update buttons based on the JSON data
-	public void displayScene(String sceneId) {
-        JsonNode scene = gameData.get("scenes").get(sceneId);
-        if (scene == null) {
-            mainTextArea.setText("Scene not found: " + sceneId);
-            return;
-        }
-        String sceneText = scene.get("text").asText();
-        JsonNode choices = scene.get("choices");
-
-        // Set the main speech (scene description)
-        mainTextArea.setText(sceneText);
-
-        // Create an array of buttons to handle each choice
-        JButton[] buttons = {choice1, choice2, choice3};
-
-        // Iterate over each choice and update the buttons
-        for (int i = 0; i < buttons.length; i++) {
-            if (i < choices.size()) {
-                String choiceText = choices.get(i).get("text").asText();
-                String nextScene = choices.get(i).get("nextScene").asText();
-
-                buttons[i].setText(choiceText);
-                buttons[i].setEnabled(true);
-
-                // Clear any existing action listeners
-                for (ActionListener al : buttons[i].getActionListeners()) {
-                    buttons[i].removeActionListener(al);
-                }
-
-                // Add new action listener for the button
-                buttons[i].addActionListener(event -> displayScene(nextScene));
-            } else {
-                buttons[i].setText("");
-                buttons[i].setEnabled(false);
-            }
-        }
-    }
 	public JPanel getGameScreenPanel() {
 		return GameScreen;
 	}
