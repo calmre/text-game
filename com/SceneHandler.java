@@ -1,5 +1,6 @@
 package com;
 
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -33,42 +34,48 @@ public class SceneHandler{
         }
     }
 	public void displayScene(String sceneId) {
-		
-		JTextArea mainTextArea = gamescreen.getMainTextArea();
-		JButton[] buttons = gamescreen.getButtons();
-		
-        JsonNode scene = gameData.get("scenes").get(sceneId);
-        if (scene == null) {
-            mainTextArea.setText("Scene not found: " + sceneId);
-            return;
-        }
-        String sceneText = scene.get("text").asText();
-        JsonNode choices = scene.get("choices");
+	    JTextArea mainTextArea = gamescreen.getMainTextArea();
+	    JButton[] buttons = gamescreen.getButtons();
 
-        // Set the main speech (scene description)
-        mainTextArea.setText(sceneText);
+	    // Fetch the image path for the current scene from the JSON
+	    String imagePath = gameData.path("scenes").path(sceneId).path("bg").asText();
+	    
+	    // Call the GameScreen method to update the image
+	    gamescreen.setImage(imagePath);  // Update the image according to the scene
 
-        // Iterate over each choice and update the buttons
-        for (int i = 0; i < buttons.length; i++) {
-            if (i < choices.size()) {
-                String choiceText = choices.get(i).get("text").asText();
-                String nextScene = choices.get(i).get("nextScene").asText();
+	    JsonNode scene = gameData.get("scenes").get(sceneId);
+	    if (scene == null) {
+	        mainTextArea.setText("Scene not found: " + sceneId);
+	        return;
+	    }
+	    String sceneText = scene.get("text").asText();
+	    JsonNode choices = scene.get("choices");
 
-                buttons[i].setText(choiceText);
-                buttons[i].setEnabled(true);
+	    // Set the main speech (scene description)
+	    mainTextArea.setText(sceneText); 
 
-                // Clear any existing action listeners
-                for (ActionListener al : buttons[i].getActionListeners()) {
-                    buttons[i].removeActionListener(al);
-                }
+	    // Iterate over each choice and update the buttons
+	    for (int i = 0; i < buttons.length; i++) {
+	        if (i < choices.size()) {
+	            String choiceText = choices.get(i).get("text").asText();
+	            String nextScene = choices.get(i).get("nextScene").asText();
 
-                // Add new action listener for the button
-                buttons[i].addActionListener(event -> displayScene(nextScene));
-            } else {
-                buttons[i].setText("");
-                buttons[i].setEnabled(false);
-            }
-        }
-    }
+	            buttons[i].setText(choiceText);
+	            buttons[i].setEnabled(true);
+
+	            // Clear any existing action listeners
+	            for (ActionListener al : buttons[i].getActionListeners()) {
+	                buttons[i].removeActionListener(al);
+	            }
+
+	            // Add new action listener for the button
+	            buttons[i].addActionListener(event -> displayScene(nextScene));
+	        } else {
+	            buttons[i].setText("");
+	            buttons[i].setEnabled(false);
+	        }
+	    }
+	}
+
 
 }
