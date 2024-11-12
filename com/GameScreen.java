@@ -18,6 +18,9 @@ public class GameScreen{
     JPanel GameScreen;
     GameLauncher gamelauncher;
     JsonNode gameData;
+    JLabel image1Label;
+    Image scaledImage;
+    ImageIcon originalImage1;
     JPanel mainTextPanel = new JPanel();
     JPanel choiceButtonPanel = new JPanel();
     JPanel playerPanel = new JPanel();
@@ -33,7 +36,7 @@ public class GameScreen{
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     Font choicesFont = new Font("Times New Roman", Font.PLAIN, 20);
     
-    
+    //ImageIcon originalImage1;
     //image scaling
     ImageIcon bagIcon = new ImageIcon("bag2.png");  
     Image scaledImageBag = bagIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
@@ -61,11 +64,14 @@ public class GameScreen{
         imagePanel.setBackground(Color.blue);
         GameScreen.add(imagePanel);
         
-        
-        ImageIcon originalImage1 = new ImageIcon("test1.jpg"); 
+      /*  originalImage1 = null;
         Image scaledImage = originalImage1.getImage().getScaledInstance(imagePanel.getWidth(), imagePanel.getHeight(), Image.SCALE_SMOOTH);
         JLabel image1Label = new JLabel(new ImageIcon(scaledImage));
-        imagePanel.add(image1Label);
+        imagePanel.add(image1Label);*/
+
+
+
+        
         
         mainTextPanel.setBounds(250, 360, 800, 175);
         mainTextPanel.setBackground(Color.pink);
@@ -152,6 +158,23 @@ public class GameScreen{
         playerSetup();
         SceneHandler SH = new SceneHandler(this);
 	}
+	
+	public void setImage(String imagePath) {
+        ImageIcon originalImage1 = new ImageIcon(getClass().getResource(imagePath)); 
+
+        if (originalImage1.getImageLoadStatus() == MediaTracker.ERRORED || originalImage1.getIconWidth() == -1) {
+            System.out.println("Image not found, loading template or blank image.");
+            originalImage1 = new ImageIcon(getClass().getResource("/resources/background/template.jpg")); // Your template image
+        }
+        Image scaledImage = originalImage1.getImage().getScaledInstance(imagePanel.getWidth(), imagePanel.getHeight(), Image.SCALE_SMOOTH);
+        imagePanel.removeAll();
+        JLabel image1Label = new JLabel(new ImageIcon(scaledImage));
+        imagePanel.add(image1Label);
+        imagePanel.revalidate();
+        imagePanel.repaint();
+	}
+	
+	
 		
         
     public void playerSetup() {
@@ -193,7 +216,12 @@ public class GameScreen{
 		JButton[] buttons = {choice1, choice2, choice3};
 		return buttons;
 	}
-
+	public ImageIcon getOrigImage() {
+		return originalImage1;
+	}
+	public JPanel getImagePanel() {
+		return imagePanel;
+	}
 	public JPanel getGameScreenPanel() {
 		return GameScreen;
 	}
