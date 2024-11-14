@@ -14,7 +14,7 @@ import java.util.Timer;
 
 public class GameScreen{
     Timer timer;
-
+    JPanel PlayerPanel;
     JButton choice1, choice2, choice3, choice4;
     JPanel GameScreen;
     GameLauncher gamelauncher;
@@ -56,12 +56,18 @@ public class GameScreen{
 		this.gamelauncher = launcher;
 		
 		GameScreen = new JPanel();
-		GameScreen.setBounds(0,0,1280,720);
-		GameScreen.setBackground(Color.black);
+		GameScreen.setBounds(0,100,1280,620);
+		GameScreen.setBackground(Color.green);
 		GameScreen.setLayout(null);
+		
+		PlayerPanel = new JPanel();
+		PlayerPanel.setBounds(0,0,1280,100);
+		PlayerPanel.setBackground(Color.BLUE);
+		PlayerPanel.setLayout(null);
+		
 	
 	        
-        imagePanel.setBounds(400, 100, 425, 250);
+        imagePanel.setBounds(400, 10, 425, 250);
         imagePanel.setBackground(Color.blue);
         GameScreen.add(imagePanel);
         
@@ -74,7 +80,7 @@ public class GameScreen{
 
         
         
-        mainTextPanel.setBounds(250, 360, 800, 175);
+        mainTextPanel.setBounds(250, 260, 800, 175);
         mainTextPanel.setBackground(Color.pink);
         GameScreen.add(mainTextPanel);
         
@@ -88,7 +94,7 @@ public class GameScreen{
 		        mainTextArea.setEditable(false);
 		        mainTextPanel.add(mainTextArea);
 
-        choiceButtonPanel.setBounds(300, 550, 600, 75);
+        choiceButtonPanel.setBounds(300, 450, 600, 75);
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 3));
         GameScreen.add(choiceButtonPanel);
@@ -111,7 +117,7 @@ public class GameScreen{
         playerPanel.setBounds(50, 15, 300, 75);
         playerPanel.setBackground(Color.yellow);
         playerPanel.setLayout(new GridLayout(2, 2)); 
-        GameScreen.add(playerPanel);
+        PlayerPanel.add(playerPanel);
 
 		        nameLabel = new JLabel(playerName);
 		        styleLabel(nameLabel);
@@ -133,7 +139,7 @@ public class GameScreen{
         optionsPanel.setBounds(820, 15, 350, 75);
         optionsPanel.setBackground(Color.orange);
         optionsPanel.setLayout(new GridLayout(1, 3));
-        GameScreen.add(optionsPanel);
+        PlayerPanel.add(optionsPanel);
 
         
 		        inventoryButton = new JButton("(I)", scaledIconBag);
@@ -231,6 +237,9 @@ public class GameScreen{
 	}
 	public JPanel getGameScreenPanel() {
 		return GameScreen;
+	}
+	public JPanel getPlayerPanel() {
+		return PlayerPanel;
 	}
 	
 	
