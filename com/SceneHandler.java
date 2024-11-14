@@ -2,8 +2,8 @@ package com;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-
+import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,9 @@ import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -25,6 +27,7 @@ public class SceneHandler{
     String sceneId;
     JsonNode choices;
     Timer timer;
+    String gameWeapon;
     
 
 	JsonNode gameData;
@@ -52,6 +55,9 @@ public class SceneHandler{
     
     
 	public void displayScene(String sceneId) {
+		if (gameWeapon != null ){
+			setWeaponIcon();
+		}
 	    mainTextArea = gamescreen.getMainTextArea();
 	    buttons = gamescreen.getButtons();
 
@@ -68,6 +74,8 @@ public class SceneHandler{
 	        mainTextArea.setText("Scene not found: " + sceneId);
 	        return;
 	    }
+	    
+	    
 	    String sceneText = scene.get("text").asText();
 
 	    // Set the main speech (scene description)
@@ -77,6 +85,7 @@ public class SceneHandler{
 			buttons[i].setEnabled(false);
 			buttons[i].setText(null);
 		}
+		
 	}
 	
 	public void updateButtons() {
@@ -85,11 +94,16 @@ public class SceneHandler{
 	        if (i < choices.size()) {
 	            String choiceText = choices.get(i).get("text").asText();
 	    	  //  String weaponPath = choices.get(i).get("path");
-	            System.out.println(choiceText);
+	            
 	            String nextScene = choices.get(i).get("nextScene").asText();
-
 	            buttons[i].setText(choiceText);
 	            buttons[i].setEnabled(true);
+	            
+	            String weapon = choices.get(i).has("weapon") ? choices.get(i).get("weapon").asText() : null;
+
+	            
+	                       
+	 
 
 	            // Clear any existing action listeners
 	            for (ActionListener al : buttons[i].getActionListeners()) {
@@ -97,13 +111,22 @@ public class SceneHandler{
 	            }
 
 	            // Add new action listener for the button
-	            buttons[i].addActionListener(event -> displayScene(nextScene));
+	            buttons[i].addActionListener(event -> {
+	                if (weapon != null) {
+	                    gameWeapon = weapon;  // Assign weapon only if it's non-null
+	                    
+	                }
+	                displayScene(nextScene);  // Continue to the next scene regardless of weapon existence
+	            });
 	        } else {
 	            buttons[i].setText("...");
 	            buttons[i].setEnabled(false);
 	        }
-	    }
+	   }
 	}
+
+
+	
 	public void displayTextWithTypingEffect(String fullText) {
 		
         // Clear the existing text
@@ -153,6 +176,25 @@ public class SceneHandler{
 			timer.cancel();
 		}
 		mainTextArea.setText(fullText);
+	}
+	
+	public void setWeaponIcon() {
+		JPanel weaponPanel = gamescreen.getWeaponPanel();
+		
+		String weaponPath = "";
+		if(gameWeapon.equals("sword")) {
+			weaponPath = "/resources/ui/sword.png";
+		}
+		else if(gameWeapon.equals("slingshot")) {
+			weaponPath = "/resources/ui/slingshot.png";
+		}
+		ImageIcon weaponImage = new ImageIcon(getClass().getResource(weaponPath));
+		Image scaledImage = weaponImage.getImage().getScaledInstance(weaponPanel.getWidth(), weaponPanel.getHeight(), Image.SCALE_SMOOTH);
+		weaponPanel.removeAll();
+        JLabel image1Label = new JLabel(new ImageIcon(scaledImage));
+        weaponPanel.add(image1Label);
+        weaponPanel.revalidate();
+        weaponPanel.repaint();
 	}
 
 
