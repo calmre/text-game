@@ -34,6 +34,7 @@ public class GameScreen{
     int playerHP, playerMana, playerLevel;
     String playerName;
     JPanel optionsPanel = new JPanel();
+    JPanel weaponPanel;
 
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     Font choicesFont = new Font("Times New Roman", Font.PLAIN, 20);
@@ -78,10 +79,15 @@ public class GameScreen{
         
 	    JPanel inventoryPanel = new JPanel();    
 
-        inventoryPanel.setBounds(400,15,400,75);
+        inventoryPanel.setBounds(400,15,425,75);
         inventoryPanel.setBackground(Color.PINK);
+        inventoryPanel.setLayout(null);
         PlayerPanel.add(inventoryPanel);
-
+        		
+        		weaponPanel = new JPanel();
+        		weaponPanel.setBounds(0,0,75,75);
+        		weaponPanel.setBackground(Color.gray);
+        		inventoryPanel.add(weaponPanel);
 
 
         
@@ -172,6 +178,10 @@ public class GameScreen{
         playerSetup();
         SceneHandler SH = new SceneHandler(this);
 	}
+	/*public void setWeapon(String weaponPath) {
+        ImageIcon weaponImage = new ImageIcon(getClass().getResource(weaponPath)); 
+
+	}*/
 	
 	public void setImage(String imagePath) {
         ImageIcon originalImage1 = new ImageIcon(getClass().getResource(imagePath)); 
@@ -187,6 +197,7 @@ public class GameScreen{
         imagePanel.revalidate();
         imagePanel.repaint();
 	}
+	
 	
 	
 	
@@ -246,6 +257,9 @@ public class GameScreen{
 	}
 	public JPanel getPlayerPanel() {
 		return PlayerPanel;
+	}
+	public JPanel getWeaponPanel() {
+		return weaponPanel;
 	}
 	
 	
