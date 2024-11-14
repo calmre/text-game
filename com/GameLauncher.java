@@ -43,6 +43,7 @@ public class GameLauncher {
         GameScreen gameScreen = new GameScreen(this);
         con.removeAll(); 
         con.add(gameScreen.getGameScreenPanel());
+        con.add(gameScreen.getPlayerPanel());
         gameWindow.revalidate();
         gameWindow.repaint();
     }
