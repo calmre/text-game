@@ -3,17 +3,18 @@ package com;
 import javax.swing.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.TimerTask;
+import java.util.Timer;
+
 
 
 public class GameScreen{
-	
+    Timer timer;
+
     JButton choice1, choice2, choice3, choice4;
     JPanel GameScreen;
     GameLauncher gamelauncher;
@@ -84,6 +85,7 @@ public class GameScreen{
 		        mainTextArea.setFont(normalFont);
 		        mainTextArea.setWrapStyleWord(true);
 		        mainTextArea.setLineWrap(true);
+		        mainTextArea.setEditable(false);
 		        mainTextPanel.add(mainTextArea);
 
         choiceButtonPanel.setBounds(300, 550, 600, 75);
@@ -175,6 +177,8 @@ public class GameScreen{
 	}
 	
 	
+	
+	
 		
         
     public void playerSetup() {
@@ -208,6 +212,9 @@ public class GameScreen{
         label.setFont(choicesFont);
         label.setForeground(color);
     }    
+    public JPanel getMainTextPanel() {
+    	return mainTextPanel;
+    }
 		
 	public JTextArea getMainTextArea() {
 		return mainTextArea;
