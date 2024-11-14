@@ -13,6 +13,7 @@ import java.util.Timer;
 
 
 public class GameScreen{
+	JPanel inventoryPanel;
     Timer timer;
     JPanel PlayerPanel;
     JButton choice1, choice2, choice3, choice4;
@@ -39,15 +40,15 @@ public class GameScreen{
     
     //ImageIcon originalImage1;
     //image scaling
-    ImageIcon bagIcon = new ImageIcon("bag2.png");  
+    /*ImageIcon bagIcon = new ImageIcon(getClass().getResourceAsStream("/resources/ui/.json"));  
     Image scaledImageBag = bagIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon scaledIconBag = new ImageIcon(scaledImageBag);
+    ImageIcon scaledIconBag = new ImageIcon(scaledImageBag);*/
     
-    ImageIcon saveIcon = new ImageIcon("save2.png"); 
+    ImageIcon saveIcon = new ImageIcon(getClass().getResource("/resources/ui/save2.png")); 
     Image scaledImageSave = saveIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
     ImageIcon scaledIconSave = new ImageIcon(scaledImageSave);
     
-    ImageIcon exitIcon = new ImageIcon("exit2.png");
+    ImageIcon exitIcon = new ImageIcon(getClass().getResource("/resources/ui/exit2.png"));
     Image scaledImageExit =  exitIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
     ImageIcon scaledIconExit = new ImageIcon(scaledImageExit);
 
@@ -66,7 +67,6 @@ public class GameScreen{
 		PlayerPanel.setLayout(null);
 		
 	
-	        
         imagePanel.setBounds(400, 10, 425, 250);
         imagePanel.setBackground(Color.blue);
         GameScreen.add(imagePanel);
@@ -75,6 +75,12 @@ public class GameScreen{
         Image scaledImage = originalImage1.getImage().getScaledInstance(imagePanel.getWidth(), imagePanel.getHeight(), Image.SCALE_SMOOTH);
         JLabel image1Label = new JLabel(new ImageIcon(scaledImage));
         imagePanel.add(image1Label);*/
+        
+	    JPanel inventoryPanel = new JPanel();    
+
+        inventoryPanel.setBounds(400,15,400,75);
+        inventoryPanel.setBackground(Color.PINK);
+        PlayerPanel.add(inventoryPanel);
 
 
 
@@ -136,27 +142,27 @@ public class GameScreen{
 		        playerPanel.add(manaLabel);
 
         
-        optionsPanel.setBounds(820, 15, 350, 75);
+        optionsPanel.setBounds(860, 15, 350, 75);
         optionsPanel.setBackground(Color.orange);
         optionsPanel.setLayout(new GridLayout(1, 3));
         PlayerPanel.add(optionsPanel);
 
         
-		        inventoryButton = new JButton("(I)", scaledIconBag);
+		        /*inventoryButton = new JButton("(I)", scaledIconBag);
 		        inventoryButton.setVerticalTextPosition(JButton.BOTTOM);
 		        inventoryButton.setHorizontalTextPosition(JButton.CENTER);
 		        styleButton(inventoryButton);
 		        inventoryButton.setBorderPainted(false);
-		        optionsPanel.add(inventoryButton);
+		        optionsPanel.add(inventoryButton);*/
 		
-		        saveButton = new JButton("(S)", scaledIconSave);
+		        saveButton = new JButton("Save", scaledIconSave);
 		        saveButton.setVerticalTextPosition(JButton.BOTTOM);
 		        saveButton.setHorizontalTextPosition(JButton.CENTER);
 		        styleButton(saveButton);
 		        saveButton.setBorderPainted(false);
 		        optionsPanel.add(saveButton);
 		
-		        exitButton = new JButton("(E)xit", scaledIconExit);
+		        exitButton = new JButton("Exit", scaledIconExit);
 		        exitButton.setVerticalTextPosition(JButton.BOTTOM);
 		        exitButton.setHorizontalTextPosition(JButton.CENTER);
 		        styleButton(exitButton);
