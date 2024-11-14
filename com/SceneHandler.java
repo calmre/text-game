@@ -99,7 +99,7 @@ public class SceneHandler{
 	            // Add new action listener for the button
 	            buttons[i].addActionListener(event -> displayScene(nextScene));
 	        } else {
-	            buttons[i].setText("");
+	            buttons[i].setText("...");
 	            buttons[i].setEnabled(false);
 	        }
 	    }
@@ -108,6 +108,7 @@ public class SceneHandler{
 		
         // Clear the existing text
         JPanel mainTextPanel = gamescreen.getMainTextPanel();
+        JPanel GameScreen = gamescreen.getGameScreenPanel();
 
         mainTextArea.setText(null);
 
@@ -132,7 +133,7 @@ public class SceneHandler{
             }
         };
         timer.schedule(task, 0, 25);
-        mainTextPanel.addMouseListener(new MouseAdapter() {
+        GameScreen.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mousePressed(MouseEvent e) {
         		System.out.println("gago");
