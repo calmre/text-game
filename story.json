@@ -18,6 +18,7 @@
 	        "weapon": "slingshot", "path": "/resources/ui/slingshot.png" }]  
 	  },
 	  "scene3": {
+	  	"popOut": "ACQUIRED:\nIron Sowrd x 3\nHealth Potion x 1\nRation x 3",
 	  	  "text": "You decide to walk away. The adventure ends here.",
 	      "choices": []
 	    }
