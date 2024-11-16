@@ -92,7 +92,7 @@ public class MainMenu {
         Credits.setFont(new Font("VT323", Font.PLAIN, 20));
         Credits.setForeground(Color.white);
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 0; 	 	
         copyright.add(Credits, gbc);
 
         MainMenu.add(title, BorderLayout.NORTH);
