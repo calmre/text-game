@@ -58,12 +58,16 @@ public class SceneHandler{
 		if (gameWeapon != null ){
 			setWeaponIcon();
 		}
+		
+
+		
+		
 	    mainTextArea = gamescreen.getMainTextArea();
 	    buttons = gamescreen.getButtons();
 
 	    // Fetch the image path for the current scene from the JSON
 	    String imagePath = gameData.path("scenes").path(sceneId).path("bg").asText();
-	    
+
 	    // Call the GameScreen method to update the image
 	    gamescreen.setImage(imagePath);  // Update the image according to the scene
 	    
@@ -75,6 +79,12 @@ public class SceneHandler{
 	        return;
 	    }
 	    
+	    String popOutText = scene.has("popOut") ? scene.get("popOut").asText() : null;
+		if (sceneId.equals("scene3")){
+			System.out.println(popOutText);
+		    gamescreen.popOut(popOutText);
+		}
+
 	    
 	    String sceneText = scene.get("text").asText();
 
@@ -177,6 +187,8 @@ public class SceneHandler{
 		}
 		mainTextArea.setText(fullText);
 	}
+	
+	
 	
 	public void setWeaponIcon() {
 		JPanel weaponPanel = gamescreen.getWeaponPanel();
