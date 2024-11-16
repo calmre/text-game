@@ -13,7 +13,14 @@ import java.util.Timer;
 
 
 public class GameScreen{
-	JPanel inventoryPanel;
+	JPanel popOut;
+	JTextArea popOutText;
+	
+	JPanel inventoryPanel,consumablesPanel, weaponPanel;
+;
+
+	
+	
     Timer timer;
     JPanel PlayerPanel;
     JButton choice1, choice2, choice3, choice4;
@@ -34,7 +41,6 @@ public class GameScreen{
     int playerHP, playerMana, playerLevel;
     String playerName;
     JPanel optionsPanel = new JPanel();
-    JPanel weaponPanel;
 
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     Font choicesFont = new Font("Times New Roman", Font.PLAIN, 20);
@@ -88,6 +94,12 @@ public class GameScreen{
         		weaponPanel.setBounds(0,0,75,75);
         		weaponPanel.setBackground(Color.gray);
         		inventoryPanel.add(weaponPanel);
+        		
+        		
+        		consumablesPanel = new JPanel();
+        		consumablesPanel.setBounds(75,0,200,75);
+        		consumablesPanel.setBackground(Color.orange);
+        		inventoryPanel.add(consumablesPanel);
 
 
         
@@ -174,7 +186,16 @@ public class GameScreen{
 		        styleButton(exitButton);
 		        exitButton.setBorderPainted(false);
 		        optionsPanel.add(exitButton);
-
+		        exitButton.addActionListener(event -> {
+		        	System.exit(0);
+		        }); 
+		        
+  
+    	
+    	
+    	
+    	
+    	
         playerSetup();
         SceneHandler SH = new SceneHandler(this);
 	}
@@ -198,6 +219,29 @@ public class GameScreen{
         imagePanel.repaint();
 	}
 	
+	public void popOut(String popOutTextArea) {
+		JPanel popOut = new JPanel();
+        popOut.setBackground(Color.white);
+        popOut.setBounds(500,100,100,100);
+        popOut.setLayout(new BorderLayout()); 
+        
+        JButton ekis = new JButton("X");
+        ekis.setBackground (Color.white);
+        ekis.setForeground (Color.black);
+        ekis.setFocusable(false);
+        ekis.addActionListener(e -> popOut.setVisible(false));
+        String text = popOutTextArea;
+      
+    	JTextArea popOutText = new JTextArea(text);
+    	popOutText.setLineWrap(true);
+    	popOutText.setWrapStyleWord(true);
+    	popOutText.setEditable(false); 
+    	popOutText.setBackground(Color.white); 
+    	popOut.add(ekis, BorderLayout.NORTH);;
+    	popOut.add(popOutText, BorderLayout.CENTER);
+    	
+		GameScreen.add(popOut);
+	}
 	
 	
 	
